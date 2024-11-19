@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Attendance Log</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1, h2 {
+            text-align: center;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .editable {
+            cursor: pointer;
+            background-color: #f9f9f9;
+            border: 1px dashed transparent;
+            padding: 5px;
+        }
+        
+        .editable:hover {
+            border: 1px dashed #ccc;
+        }
+        
+        button {
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        button.reject-btn {
+            background-color: #f44336;
+        }
+        
+        button.edit-btn {
+            background-color: #ff9800;
+        }
+        
+        .request {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Attendance Log</h1>
+        
+        <table id="attendanceTable">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Check-In</th>
+                    <th>Check-Out</th>
+                    <th>Late</th>
+                    <th>Overtime</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td><span class="editable">09:15</span></td>
+                    <td><span class="editable">17:30</span></td>
+                    <td><span class="editable">15 min</span></td>
+                    <td><span class="editable">1 hr</span></td>
+                    <td><button class="edit-btn">Manual Override</button></td>
+                </tr>
+                <!-- More rows can be added dynamically -->
+            </tbody>
+        </table>
+
+        <h2>Approval Requests</h2>
+        <div id="requests">
+            <div class="request">
+                <p>John Doe is requesting leave on 2024-09-18</p>
+                <button class="approve-btn">Approve</button>
+                <button class="reject-btn">Reject</button>
+            </div>
+            <!-- More requests can be added dynamically -->
+        </div>
+    </div>
+
+    <script>
+        // Manual Override
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const row = button.closest('tr');
+                row.querySelectorAll('.editable').forEach(cell => {
+                    const originalText = cell.innerText;
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.value = originalText;
+                    cell.innerText = '';
+                    cell.appendChild(input);
+
+                    input.addEventListener('blur', () => {
+                        cell.innerText = input.value || originalText; // Set to original if empty
+                    });
+                });
+            });
+        });
+
+        // Approval Requests
+        document.querySelectorAll('.approve-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const requestDiv = button.closest('.request');
+                alert("Request Approved");
+                requestDiv.remove();
+            });
+        });
+
+        document.querySelectorAll('.reject-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const requestDiv = button.closest('.request');
+                alert("Request Rejected");
+                requestDiv.remove();
+            });
+        });
+
+    </script>
+</body>
+</html>
