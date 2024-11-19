@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presensi Karyawan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            margin: 20px;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+            color: #4a4a4a;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        th, td {
+            padding: 16px 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            font-size: 14px;
+            color: #4a4a4a;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9fafc;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        tbody tr:hover {
+            background-color: #e2f0ff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="time"] {
+            background-color: #f5f8fb;
+            border: 1px solid #d1d9e6;
+            border-radius: 4px;
+            padding: 5px;
+            width: 100px;
+            color: #000000;
+            font-size: 14px;
+        }
+
+        input[type="time"]::-webkit-calendar-picker-indicator {
+            filter: invert(0);
+        }        
+
+        /* Responsif Design */
+        @media (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            th, td {
+                padding: 10px;
+                font-size: 12px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                margin: 10px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px 6px;
+            }
+
+            input[type="time"] {
+                width: 80px;
+                padding: 4px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+        }
+
+        /* Styles for buttons */
+        .buttons {
+            display: flex;
+            justify-content: flex-end; /* Agar tombol ada di sebelah kanan tabel */
+            margin: 20px 0;
+            max-width: 1200px; /* Sesuaikan lebar tombol dengan lebar tabel */
+            margin-left: auto;
+            margin-right: auto;
+            font-family: 'Inter', sans-serif;
+        }        
+
+        .buttons button {
+            background-color: #007bff;
+            font-family: 'Inter', sans-serif;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .buttons button:hover {
+            background-color: #007bff;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>Daftar Kehadiran Karyawan</h2>
+
+    <table id="attendance-table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Karyawan</th>
+                <th>Waktu Masuk</th>
+                <th>Waktu Keluar</th>
+                <th>Keterlambatan (Menit)</th>
+                <th>Jam Lembur</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td><input type="time" id="timeIn0" value="08:10"></td>
+                <td><input type="time" id="timeOut0" value="17:30"></td>
+                <td id="late0">10</td>
+                <td id="overtime0">0,5</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Jane Smith</td>
+                <td><input type="time" id="timeIn1" value="07:30"></td>
+                <td><input type="time" id="timeOut1" value="17:00"></td>
+                <td id="late1">0</td>
+                <td id="overtime1">0</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Aldila A</td>
+                <td><input type="time" id="timeIn2" value="07:15"></td>
+                <td><input type="time" id="timeOut2" value="17:30"></td>
+                <td id="late2">0</td>
+                <td id="overtime2">0,5</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Nailah Salwa</td>
+                <td><input type="time" id="timeIn3" value="08:20"></td>
+                <td><input type="time" id="timeOut3" value="17:00"></td>
+                <td id="late3">20</td>
+                <td id="overtime3">0</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Zacky M</td>
+                <td><input type="time" id="timeIn4" value="08:00"></td>
+                <td><input type="time" id="timeOut4" value="17:00"></td>
+                <td id="late4">0</td>
+                <td id="overtime4">0</td>
+            </tr>
+        </tbody>
+        
+    </table>
+    <div class="buttons">
+        <a href="request.html"><button>Lihat Izin</button></a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Tambahkan event listener pada input waktu masuk dan keluar untuk setiap karyawan
+            document.getElementById("timeIn0").addEventListener("change", function() {
+                updateLateAndOvertime("timeIn0", "timeOut0", "late0", "overtime0");
+            });
+            document.getElementById("timeOut0").addEventListener("change", function() {
+                updateLateAndOvertime("timeIn0", "timeOut0", "late0", "overtime0");
+            });
+            document.getElementById("timeIn1").addEventListener("change", function() {
+                updateLateAndOvertime("timeIn1", "timeOut1", "late1", "overtime1");
+            });
+            document.getElementById("timeOut1").addEventListener("change", function() {
+                updateLateAndOvertime("timeIn1", "timeOut1", "late1", "overtime1");
+            });
+            document.getElementById("timeIn2").addEventListener("change", function() {
+                updateLateAndOvertime("timeIn2", "timeOut2", "late2", "overtime2");
+            });
+            document.getElementById("timeOut2").addEventListener("change", function() {
+                updateLateAndOvertime("timeIn2", "timeOut2", "late2", "overtime2");
+            });
+            document.getElementById("timeIn3").addEventListener("change", function() {
+                updateLateAndOvertime("timeIn3", "timeOut3", "late3", "overtime3");
+            });
+            document.getElementById("timeOut3").addEventListener("change", function() {
+                updateLateAndOvertime("timeIn3", "timeOut3", "late3", "overtime3");
+            });
+            document.getElementById("timeIn4").addEventListener("change", function() {
+                updateLateAndOvertime("timeIn4", "timeOut4", "late4", "overtime4");
+            });
+            document.getElementById("timeOut4").addEventListener("change", function() {
+                updateLateAndOvertime("timeIn4", "timeOut4", "late4", "overtime4");
+            });
+        
+            // Fungsi untuk memperbarui keterlambatan dan jam lembur berdasarkan waktu masuk dan keluar
+            function updateLateAndOvertime(timeInId, timeOutId, lateId, overtimeId) {
+                const timeIn = document.getElementById(timeInId).value;
+                const timeOut = document.getElementById(timeOutId).value;
+                
+                const late = calculateLate(timeIn, "08:00"); // Menghitung keterlambatan berdasarkan standar jam masuk 08:00
+                const overtime = calculateOvertime(timeOut, "17:00"); // Menghitung lembur berdasarkan standar jam keluar 17:00
+                
+                document.getElementById(lateId).textContent = late; // Perbarui kolom keterlambatan
+                document.getElementById(overtimeId).textContent = overtime; // Perbarui kolom jam lembur
+            }
+        
+            // Fungsi untuk menghitung keterlambatan (dalam menit)
+            function calculateLate(timeIn, standardIn) {
+                let [hourIn, minuteIn] = timeIn.split(":").map(Number);  // Pisahkan jam dan menit dari waktu masuk
+                let [hourStandard, minuteStandard] = standardIn.split(":").map(Number);  // Pisahkan jam dan menit dari standar jam masuk
+        
+                // Hitung keterlambatan dalam menit
+                let lateMinutes = (hourIn - hourStandard) * 60 + (minuteIn - minuteStandard);
+        
+                // Jika waktu masuk lebih lambat dari standar, hitung keterlambatan, jika tidak, nilai adalah 0
+                return lateMinutes > 0 ? lateMinutes : 0;
+            }
+        
+            // Fungsi untuk menghitung jam lembur (dalam jam, dibulatkan ke 1 desimal)
+            function calculateOvertime(timeOut, standardOut) {
+                let [hourOut, minuteOut] = timeOut.split(":").map(Number);  // Pisahkan jam dan menit dari waktu keluar
+                let [hourStandard, minuteStandard] = standardOut.split(":").map(Number);  // Pisahkan jam dan menit dari standar jam keluar
+        
+                // Hitung jam lembur dalam menit
+                let overtimeMinutes = (hourOut - hourStandard) * 60 + (minuteOut - minuteStandard);
+        
+                // Jika waktu keluar lebih lama dari standar, hitung lembur, jika tidak, nilai adalah 0
+                return overtimeMinutes > 0 ? (overtimeMinutes / 60).toFixed(1) : 0;
+            }
+        });
+    </script>
+    
+</body>
+</html>
